@@ -1,0 +1,14 @@
+n, k = map(int, input().split());
+arr = [[[0 for k in range(k+1)] for j in range(k+1)]for i in range(2*n+1)]
+arr[1][1][1] = 1
+for seqlen in range(2,2*n+1):
+    for currdepth in range(k+1):
+        for maxdepth in range(k+1):
+            if currdepth != k:
+                arr[seqlen][currdepth][maxdepth] += arr[seqlen-1][currdepth+1][maxdepth]
+            if currdepth != 0:
+                if currdepth == maxdepth:
+                    arr[seqlen][currdepth][maxdepth] += arr[seqlen-1][currdepth-1][maxdepth-1]
+                if currdepth <= maxdepth:
+                    arr[seqlen][currdepth][maxdepth] += arr[seqlen-1][currdepth-1][maxdepth]
+print(arr[2*n][0][k])
